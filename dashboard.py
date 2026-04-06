@@ -133,15 +133,39 @@ st.markdown("""
     .stCaption, small {
         color: #888888 !important;
     }
-    /* Main background */
+    /* Main content area - white background, black text */
     .stApp {
-        background-color: #000000 !important;
+        background-color: #FFFFFF !important;
     }
     [data-testid="stAppViewContainer"] {
-        background-color: #000000 !important;
+        background-color: #FFFFFF !important;
+    }
+    [data-testid="stAppViewContainer"] > section:nth-child(2) {
+        background-color: #FFFFFF !important;
     }
     [data-testid="stHeader"] {
-        background-color: #000000 !important;
+        background-color: #FFFFFF !important;
+    }
+    [data-testid="stMain"] {
+        background-color: #FFFFFF !important;
+    }
+    /* Main content text should be black */
+    [data-testid="stMain"] p,
+    [data-testid="stMain"] span,
+    [data-testid="stMain"] div,
+    [data-testid="stMain"] label,
+    [data-testid="stMain"] h1,
+    [data-testid="stMain"] h2,
+    [data-testid="stMain"] h3 {
+        color: #000000 !important;
+    }
+    /* Keep metric values yellow */
+    .metric-value {
+        color: #FFD10D !important;
+    }
+    /* Tabs in main area */
+    .stTabs [data-baseweb="tab"] {
+        color: #000000 !important;
     }
     .metric-card {
         background: #111111;
@@ -301,7 +325,7 @@ if page == "Overview":
             fig = px.line(trend, x="week", y="avg_engagement_rate",
                           color_discrete_sequence=["#FFD10D"],
                           labels={"week": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=300)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
             st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -311,7 +335,7 @@ if page == "Overview":
             fig = px.bar(freq, x="year_month", y="post_count",
                          color_discrete_sequence=["#004AAD"],
                          labels={"year_month": "", "post_count": "Posts"})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=300)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
             st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Content Mix")
@@ -319,7 +343,7 @@ if page == "Overview":
     if not types.empty:
         fig = px.pie(types, values="post_count", names="media_type",
                      color_discrete_sequence=COLORS, hole=0.4)
-        fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=300)
+        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -359,7 +383,7 @@ elif page == "Performance":
     metric = st.selectbox("Metric", ["engagement_rate", "likes", "comments", "saves", "reach"])
     fig = px.histogram(df, x=metric, nbins=40, color_discrete_sequence=["#FFD10D"],
                        labels={metric: metric.replace("_", " ").title()})
-    fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=300)
+    fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -379,7 +403,7 @@ elif page == "Content Types":
                          color="media_type", color_discrete_sequence=COLORS,
                          title="Avg Engagement Rate by Type",
                          labels={"avg_engagement_rate": "Avg ER %", "media_type": ""})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", showlegend=False, height=350)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
         with col2:
@@ -387,7 +411,7 @@ elif page == "Content Types":
                          barmode="group", title="Avg Metrics by Type",
                          color_discrete_sequence=COLORS,
                          labels={"value": "Count", "media_type": ""})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=350)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=350)
             st.plotly_chart(fig, use_container_width=True)
 
         st.dataframe(types.style.format({
@@ -405,7 +429,7 @@ elif page == "Content Types":
         fig = px.bar(cap, x="caption_bucket", y="avg_engagement_rate",
                      color_discrete_sequence=["#FFD10D"],
                      labels={"caption_bucket": "", "avg_engagement_rate": "Avg ER %"})
-        fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=300)
+        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -427,7 +451,7 @@ elif page == "Timing":
             fig = px.bar(by_day, x="day_of_week", y="avg_engagement_rate",
                          color="avg_engagement_rate", color_continuous_scale=[[0, "#111111"], [1, "#FFD10D"]],
                          labels={"day_of_week": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", showlegend=False, height=350)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -438,7 +462,7 @@ elif page == "Timing":
             fig = px.bar(by_hour, x="hour_label", y="avg_engagement_rate",
                          color="avg_engagement_rate", color_continuous_scale=[[0, "#111111"], [1, "#004AAD"]],
                          labels={"hour_label": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", showlegend=False, height=350)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Posting Frequency & Engagement Over Time")
@@ -449,7 +473,7 @@ elif page == "Timing":
                         name="Avg ER %", mode="lines+markers",
                         line=dict(color="#FFD10D"), yaxis="y2")
         fig.update_layout(
-            template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000",
+            template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF",
             yaxis=dict(title="Post Count"),
             yaxis2=dict(title="Avg ER %", overlaying="y", side="right"),
             legend=dict(orientation="h"),
@@ -478,7 +502,7 @@ elif page == "Hashtags":
                          orientation="h", color="avg_engagement_rate",
                          color_continuous_scale=[[0, "#111111"], [1, "#FFD10D"]],
                          labels={"avg_engagement_rate": "Avg ER %", "hashtag": ""})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", showlegend=False, height=500)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=500)
             st.plotly_chart(fig, use_container_width=True)
 
         with col2:
@@ -488,7 +512,7 @@ elif page == "Hashtags":
                          orientation="h", color="uses",
                          color_continuous_scale=[[0, "#111111"], [1, "#004AAD"]],
                          labels={"uses": "Times Used", "hashtag": ""})
-            fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", showlegend=False, height=500)
+            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=500)
             st.plotly_chart(fig, use_container_width=True)
 
         st.subheader("Full Hashtag Table")
@@ -534,7 +558,7 @@ elif page == "Strategy":
                          title="Volume vs. Engagement by Content Type",
                          labels={"post_count": "Number of Posts", "avg_engagement_rate": "Avg ER %"})
         fig.update_traces(textposition="top center")
-        fig.update_layout(template="plotly_dark", paper_bgcolor="#000000", plot_bgcolor="#000000", height=400)
+        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=400)
         st.plotly_chart(fig, use_container_width=True)
 
 
