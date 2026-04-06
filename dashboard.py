@@ -47,159 +47,225 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
     @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
 
+    :root {
+        --bg:        #0A0A0A;
+        --surface:   #131313;
+        --border:    #1F1F1F;
+        --border-hi: #2A2A2A;
+        --yellow:    #FFD10D;
+        --blue:      #004AAD;
+        --blue-hi:   #1A6EE8;
+        --text:      #F0F0F0;
+        --muted:     #777777;
+        --font-head: 'Clash Display', 'Syne', sans-serif;
+        --font-body: 'Syne', sans-serif;
+    }
+
+    /* ── Global reset ── */
     html, body, [class*="css"] {
-        font-family: 'Space Grotesk', sans-serif;
-        color: #FFFFFF !important;
+        font-family: var(--font-body) !important;
+        background-color: var(--bg) !important;
+        color: var(--text) !important;
     }
+
+    /* ── App shells ── */
+    .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stHeader"],
+    section.main {
+        background-color: var(--bg) !important;
+    }
+
+    /* ── Sidebar ── */
+    [data-testid="stSidebar"],
+    [data-testid="stSidebar"] > div {
+        background-color: var(--surface) !important;
+        border-right: 1px solid var(--border) !important;
+    }
+
+    /* ── Typography ── */
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Clash Display', 'Space Grotesk', sans-serif !important;
+        font-family: var(--font-head) !important;
         font-weight: 600 !important;
-        color: #FFFFFF !important;
+        color: var(--text) !important;
+        letter-spacing: -0.02em !important;
     }
+    h1 { font-size: 2rem !important; }
+    h2, h3 { font-size: 1.1rem !important; font-weight: 500 !important; color: var(--muted) !important; text-transform: uppercase; letter-spacing: 0.08em !important; }
+
     p, span, div, label, li {
-        color: #FFFFFF !important;
+        color: var(--text) !important;
     }
-    .stMarkdown, .stText, [data-testid="stMetricLabel"],
-    [data-testid="stMetricValue"], [data-testid="stMetricDelta"] {
-        color: #FFFFFF !important;
+
+    /* ── Sidebar text ── */
+    [data-testid="stSidebar"] * { color: var(--text) !important; }
+    [data-testid="stSidebar"] h1 {
+        font-size: 1.3rem !important;
+        color: var(--yellow) !important;
+        letter-spacing: -0.01em !important;
     }
-    [data-testid="stSidebar"] {
-        background-color: #111111 !important;
+
+    /* ── Dividers ── */
+    hr { border-color: var(--border) !important; }
+
+    /* ── Inputs & selects ── */
+    .stSelectbox > div > div,
+    .stTextInput > div > div > input,
+    div[data-baseweb="select"] > div {
+        background-color: var(--surface) !important;
+        color: var(--text) !important;
+        border: 1px solid var(--border-hi) !important;
+        border-radius: 6px !important;
     }
-    [data-testid="stSidebar"] * {
-        color: #FFFFFF !important;
-    }
-    .stSelectbox label, .stSlider label, .stRadio label {
-        color: #FFFFFF !important;
-    }
-    .stRadio div[role="radiogroup"] label {
-        color: #FFFFFF !important;
-    }
-    .stDataFrame, .stDataFrame * {
-        color: #FFFFFF !important;
-    }
-    /* Dropdowns and select boxes */
-    .stSelectbox > div > div {
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #333333 !important;
-    }
-    .stSelectbox > div > div > div {
-        color: #FFFFFF !important;
-    }
-    /* Dropdown options list */
+    div[data-baseweb="popover"],
     div[data-baseweb="popover"] * {
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
+        background-color: var(--surface) !important;
+        color: var(--text) !important;
+        border-color: var(--border-hi) !important;
     }
-    div[data-baseweb="select"] * {
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
+    div[data-baseweb="menu"] li:hover {
+        background-color: var(--border-hi) !important;
     }
-    /* Text inputs */
-    .stTextInput > div > div > input {
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #333333 !important;
+
+    /* ── Date input ── */
+    [data-testid="stDateInput"] input {
+        background-color: var(--surface) !important;
+        color: var(--text) !important;
+        border: 1px solid var(--border-hi) !important;
+        border-radius: 6px !important;
     }
-    /* Slider */
-    [data-testid="stSlider"] * {
-        color: #FFFFFF !important;
-    }
-    [data-testid="stSlider"] div[role="slider"] {
-        background-color: #FFD10D !important;
-    }
+
+    /* ── Slider ── */
+    [data-testid="stSlider"] div[role="slider"],
     .stSlider > div > div > div > div {
-        background-color: #FFD10D !important;
+        background-color: var(--yellow) !important;
     }
-    /* Radio buttons */
+
+    /* ── Radio / nav ── */
     .stRadio > div > div > label {
         background-color: transparent !important;
-        color: #FFFFFF !important;
+        color: var(--text) !important;
+        border-radius: 4px !important;
+        padding: 4px 8px !important;
+        transition: color 0.2s !important;
     }
-    /* Tabs */
+    .stRadio > div > div > label:hover { color: var(--yellow) !important; }
+    .stRadio input[type="radio"]:checked + div { color: var(--yellow) !important; }
+
+    /* ── Tabs ── */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: transparent !important;
+        border-bottom: 1px solid var(--border-hi) !important;
+        gap: 4px !important;
+    }
     .stTabs [data-baseweb="tab"] {
-        background-color: #111111 !important;
-        color: #FFFFFF !important;
+        background-color: transparent !important;
+        color: var(--muted) !important;
+        font-family: var(--font-body) !important;
+        font-size: 13px !important;
+        letter-spacing: 0.05em !important;
+        padding: 8px 16px !important;
     }
     .stTabs [data-baseweb="tab"][aria-selected="true"] {
-        border-bottom: 2px solid #FFD10D !important;
-        color: #FFD10D !important;
+        background-color: transparent !important;
+        border-bottom: 2px solid var(--yellow) !important;
+        color: var(--yellow) !important;
     }
-    /* Caption and small text */
-    .stCaption, small {
-        color: #888888 !important;
+    .stTabs [data-baseweb="tab-panel"] {
+        background-color: transparent !important;
+        padding-top: 20px !important;
     }
-    /* Main content area - white background, black text */
-    .stApp {
-        background-color: #FFFFFF !important;
-    }
-    [data-testid="stAppViewContainer"] {
-        background-color: #FFFFFF !important;
-    }
-    [data-testid="stAppViewContainer"] > section:nth-child(2) {
-        background-color: #FFFFFF !important;
-    }
-    [data-testid="stHeader"] {
-        background-color: #FFFFFF !important;
-    }
-    [data-testid="stMain"] {
-        background-color: #FFFFFF !important;
-    }
-    /* Main content text should be black */
-    [data-testid="stMain"] p,
-    [data-testid="stMain"] span,
-    [data-testid="stMain"] div,
-    [data-testid="stMain"] label,
-    [data-testid="stMain"] h1,
-    [data-testid="stMain"] h2,
-    [data-testid="stMain"] h3 {
-        color: #000000 !important;
-    }
-    /* Keep metric values yellow */
-    .metric-value {
-        color: #FFD10D !important;
-    }
-    /* Tabs in main area */
-    .stTabs [data-baseweb="tab"] {
-        color: #000000 !important;
-    }
-    .metric-card {
-        background: #111111;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        border: 1px solid #222222;
-        border-top: 3px solid #FFD10D;
-    }
-    .metric-label { color: #888; font-size: 12px; margin-bottom: 6px; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
-    .metric-value { color: #FFD10D; font-size: 26px; font-weight: 700; font-family: 'Clash Display', sans-serif; }
-    .metric-sub { color: #666; font-size: 11px; margin-top: 4px; }
-    .rec-card {
-        background: #111111;
-        border-left: 4px solid #FFD10D;
-        border-radius: 4px;
-        padding: 14px 18px;
-        margin-bottom: 10px;
-    }
-    .rec-category { color: #FFD10D; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-    .rec-insight { color: #fff; font-size: 14px; margin: 6px 0 4px; }
-    .rec-action { color: #004AAD; font-size: 13px; }
+
+    /* ── Metrics ── */
+    [data-testid="stMetricLabel"] { color: var(--muted) !important; font-size: 11px !important; text-transform: uppercase; letter-spacing: 0.06em; }
+    [data-testid="stMetricValue"] { color: var(--text) !important; font-family: var(--font-head) !important; }
+    [data-testid="stMetricDelta"] { color: var(--yellow) !important; }
+
+    /* ── Dataframe ── */
+    .stDataFrame { border: 1px solid var(--border) !important; border-radius: 8px !important; overflow: hidden !important; }
+    .stDataFrame * { color: var(--text) !important; background-color: transparent !important; }
+
+    /* ── Caption ── */
+    .stCaption, small { color: var(--muted) !important; }
+
+    /* ── Alerts ── */
+    .stAlert { background-color: var(--surface) !important; border: 1px solid var(--border-hi) !important; border-radius: 8px !important; }
+
+    /* ── Button ── */
     .stButton > button {
-        background: #FFD10D !important;
+        background: var(--yellow) !important;
         color: #000 !important;
-        font-family: 'Space Grotesk', sans-serif !important;
-        font-weight: 600 !important;
+        font-family: var(--font-body) !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.04em !important;
         border: none !important;
-        border-radius: 4px !important;
+        border-radius: 6px !important;
+        transition: opacity 0.15s !important;
     }
+    .stButton > button:hover { opacity: 0.88 !important; }
+
+    /* ── Custom components ── */
+    .metric-card {
+        background: var(--surface);
+        border-radius: 10px;
+        padding: 22px 18px;
+        text-align: center;
+        border: 1px solid var(--border);
+        border-top: 2px solid var(--yellow);
+        transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: var(--yellow); }
+    .metric-label {
+        color: var(--muted);
+        font-size: 10px;
+        margin-bottom: 8px;
+        font-family: var(--font-body);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    .metric-value {
+        color: var(--yellow) !important;
+        font-size: 28px;
+        font-weight: 700;
+        font-family: var(--font-head);
+        line-height: 1;
+    }
+    .metric-sub { color: var(--muted); font-size: 11px; margin-top: 6px; }
+
+    .rec-card {
+        background: var(--surface);
+        border-left: 3px solid var(--yellow);
+        border-radius: 0 8px 8px 0;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+    .rec-category { color: var(--yellow); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+    .rec-insight { color: var(--text); font-size: 14px; margin: 8px 0 6px; line-height: 1.5; }
+    .rec-action { color: var(--blue-hi); font-size: 13px; }
+
+    /* ── Spinner ── */
+    .stSpinner > div { border-top-color: var(--yellow) !important; }
 </style>
 """, unsafe_allow_html=True)
 
-COLORS = ["#FFD10D", "#004AAD", "#FFFFFF", "#F5C400", "#003A8C", "#888888"]
+COLORS = ["#FFD10D", "#004AAD", "#FFFFFF", "#F5C400", "#1A6EE8", "#888888"]
+
+CHART_LAYOUT = dict(
+    template="plotly_dark",
+    paper_bgcolor="#0A0A0A",
+    plot_bgcolor="#0A0A0A",
+    font=dict(family="Syne, sans-serif", color="#F0F0F0"),
+    xaxis=dict(gridcolor="#1F1F1F", linecolor="#1F1F1F", zerolinecolor="#1F1F1F"),
+    yaxis=dict(gridcolor="#1F1F1F", linecolor="#1F1F1F", zerolinecolor="#1F1F1F"),
+    margin=dict(l=8, r=8, t=36, b=8),
+)
 
 
 # ── Data loading ──────────────────────────────────────────────────────────────
@@ -242,7 +308,7 @@ with st.sidebar:
     if data_ok:
         st.markdown(f"**@{account.get('username', '?')}**")
         st.markdown(f"{account.get('followers_count', 0):,} followers · {len(df_full)} posts")
-        st.markdown(f"Data from: `{df_full['date'].min()}` → `{df_full['date'].max()}`")
+        st.markdown(f"Data from: {df_full['date'].min()} → {df_full['date'].max()}")
         st.markdown("---")
 
         # Filters
@@ -250,9 +316,14 @@ with st.sidebar:
         media_types = ["All"] + sorted(df_full["media_type"].dropna().unique().tolist())
         selected_type = st.selectbox("Content Type", media_types)
 
-        years = sorted(df_full["year"].dropna().unique().astype(int).tolist(), reverse=True)
-        year_options = ["All"] + [str(y) for y in years]
-        selected_year = st.selectbox("Year", year_options)
+        min_date = pd.to_datetime(df_full["date"].min()).date()
+        max_date = pd.to_datetime(df_full["date"].max()).date()
+        date_range = st.date_input(
+            "Date Range",
+            value=(min_date, max_date),
+            min_value=min_date,
+            max_value=max_date,
+        )
 
         top_n = st.slider("Top posts to show", 5, 50, 20)
 
@@ -277,8 +348,10 @@ if not data_ok:
 df = df_full.copy()
 if selected_type != "All":
     df = df[df["media_type"] == selected_type]
-if selected_year != "All":
-    df = df[df["year"] == int(selected_year)]
+if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
+    start_date, end_date = date_range
+    df = df[(pd.to_datetime(df["date"]).dt.date >= start_date) &
+            (pd.to_datetime(df["date"]).dt.date <= end_date)]
 
 if df.empty:
     st.warning("No posts match the selected filters.")
@@ -325,7 +398,7 @@ if page == "Overview":
             fig = px.line(trend, x="week", y="avg_engagement_rate",
                           color_discrete_sequence=["#FFD10D"],
                           labels={"week": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
+            fig.update_layout(**CHART_LAYOUT, height=300)
             st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -335,7 +408,7 @@ if page == "Overview":
             fig = px.bar(freq, x="year_month", y="post_count",
                          color_discrete_sequence=["#004AAD"],
                          labels={"year_month": "", "post_count": "Posts"})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
+            fig.update_layout(**CHART_LAYOUT, height=300)
             st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Content Mix")
@@ -343,7 +416,8 @@ if page == "Overview":
     if not types.empty:
         fig = px.pie(types, values="post_count", names="media_type",
                      color_discrete_sequence=COLORS, hole=0.4)
-        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
+        fig.update_traces(textfont_color="#FFFFFF", textfont_size=13)
+        fig.update_layout(**CHART_LAYOUT, height=300)
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -383,7 +457,7 @@ elif page == "Performance":
     metric = st.selectbox("Metric", ["engagement_rate", "likes", "comments", "saves", "reach"])
     fig = px.histogram(df, x=metric, nbins=40, color_discrete_sequence=["#FFD10D"],
                        labels={metric: metric.replace("_", " ").title()})
-    fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
+    fig.update_layout(**CHART_LAYOUT, height=300)
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -403,7 +477,7 @@ elif page == "Content Types":
                          color="media_type", color_discrete_sequence=COLORS,
                          title="Avg Engagement Rate by Type",
                          labels={"avg_engagement_rate": "Avg ER %", "media_type": ""})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
+            fig.update_layout(**CHART_LAYOUT, showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
         with col2:
@@ -411,7 +485,7 @@ elif page == "Content Types":
                          barmode="group", title="Avg Metrics by Type",
                          color_discrete_sequence=COLORS,
                          labels={"value": "Count", "media_type": ""})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=350)
+            fig.update_layout(**CHART_LAYOUT, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
         st.dataframe(types.style.format({
@@ -429,7 +503,7 @@ elif page == "Content Types":
         fig = px.bar(cap, x="caption_bucket", y="avg_engagement_rate",
                      color_discrete_sequence=["#FFD10D"],
                      labels={"caption_bucket": "", "avg_engagement_rate": "Avg ER %"})
-        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=300)
+        fig.update_layout(**CHART_LAYOUT, height=300)
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -449,9 +523,9 @@ elif page == "Timing":
         by_day = timing["by_day"]
         if not by_day.empty:
             fig = px.bar(by_day, x="day_of_week", y="avg_engagement_rate",
-                         color="avg_engagement_rate", color_continuous_scale=[[0, "#111111"], [1, "#FFD10D"]],
+                         color="avg_engagement_rate", color_continuous_scale=[[0, "#1A1A1A"], [1, "#FFD10D"]],
                          labels={"day_of_week": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
+            fig.update_layout(**CHART_LAYOUT, showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -460,9 +534,9 @@ elif page == "Timing":
         if not by_hour.empty:
             by_hour["hour_label"] = by_hour["hour"].apply(lambda h: f"{int(h):02d}:00")
             fig = px.bar(by_hour, x="hour_label", y="avg_engagement_rate",
-                         color="avg_engagement_rate", color_continuous_scale=[[0, "#111111"], [1, "#004AAD"]],
+                         color="avg_engagement_rate", color_continuous_scale=[[0, "#1A1A1A"], [1, "#004AAD"]],
                          labels={"hour_label": "", "avg_engagement_rate": "Avg ER %"})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=350)
+            fig.update_layout(**CHART_LAYOUT, showlegend=False, height=350)
             st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Posting Frequency & Engagement Over Time")
@@ -473,10 +547,10 @@ elif page == "Timing":
                         name="Avg ER %", mode="lines+markers",
                         line=dict(color="#FFD10D"), yaxis="y2")
         fig.update_layout(
-            template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF",
-            yaxis=dict(title="Post Count"),
-            yaxis2=dict(title="Avg ER %", overlaying="y", side="right"),
-            legend=dict(orientation="h"),
+            **CHART_LAYOUT,
+            yaxis=dict(title="Post Count", gridcolor="#1F1F1F"),
+            yaxis2=dict(title="Avg ER %", overlaying="y", side="right", gridcolor="#1F1F1F"),
+            legend=dict(orientation="h", bgcolor="rgba(0,0,0,0)"),
             height=400,
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -500,9 +574,9 @@ elif page == "Hashtags":
             top_tags = tags[tags["uses"] >= 2].head(20)
             fig = px.bar(top_tags, x="avg_engagement_rate", y="hashtag",
                          orientation="h", color="avg_engagement_rate",
-                         color_continuous_scale=[[0, "#111111"], [1, "#FFD10D"]],
+                         color_continuous_scale=[[0, "#1A1A1A"], [1, "#FFD10D"]],
                          labels={"avg_engagement_rate": "Avg ER %", "hashtag": ""})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=500)
+            fig.update_layout(**CHART_LAYOUT, showlegend=False, height=500)
             st.plotly_chart(fig, use_container_width=True)
 
         with col2:
@@ -510,9 +584,9 @@ elif page == "Hashtags":
             most_used = tags.sort_values("uses", ascending=False).head(20)
             fig = px.bar(most_used, x="uses", y="hashtag",
                          orientation="h", color="uses",
-                         color_continuous_scale=[[0, "#111111"], [1, "#004AAD"]],
+                         color_continuous_scale=[[0, "#1A1A1A"], [1, "#004AAD"]],
                          labels={"uses": "Times Used", "hashtag": ""})
-            fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", showlegend=False, height=500)
+            fig.update_layout(**CHART_LAYOUT, showlegend=False, height=500)
             st.plotly_chart(fig, use_container_width=True)
 
         st.subheader("Full Hashtag Table")
@@ -558,7 +632,7 @@ elif page == "Strategy":
                          title="Volume vs. Engagement by Content Type",
                          labels={"post_count": "Number of Posts", "avg_engagement_rate": "Avg ER %"})
         fig.update_traces(textposition="top center")
-        fig.update_layout(template="plotly_white", paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF", height=400)
+        fig.update_layout(**CHART_LAYOUT, height=400)
         st.plotly_chart(fig, use_container_width=True)
 
 
