@@ -81,6 +81,68 @@ st.markdown("""
     .stDataFrame, .stDataFrame * {
         color: #FFFFFF !important;
     }
+    /* Dropdowns and select boxes */
+    .stSelectbox > div > div {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #333333 !important;
+    }
+    .stSelectbox > div > div > div {
+        color: #FFFFFF !important;
+    }
+    /* Dropdown options list */
+    div[data-baseweb="popover"] * {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+    }
+    div[data-baseweb="select"] * {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+    }
+    /* Text inputs */
+    .stTextInput > div > div > input {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #333333 !important;
+    }
+    /* Slider */
+    [data-testid="stSlider"] * {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSlider"] div[role="slider"] {
+        background-color: #FFD10D !important;
+    }
+    .stSlider > div > div > div > div {
+        background-color: #FFD10D !important;
+    }
+    /* Radio buttons */
+    .stRadio > div > div > label {
+        background-color: transparent !important;
+        color: #FFFFFF !important;
+    }
+    /* Tabs */
+    .stTabs [data-baseweb="tab"] {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+    }
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        border-bottom: 2px solid #FFD10D !important;
+        color: #FFD10D !important;
+    }
+    /* Caption and small text */
+    .stCaption, small {
+        color: #888888 !important;
+    }
+    /* Main background */
+    .stApp {
+        background-color: #000000 !important;
+    }
+    [data-testid="stAppViewContainer"] {
+        background-color: #000000 !important;
+    }
+    [data-testid="stHeader"] {
+        background-color: #000000 !important;
+    }
     .metric-card {
         background: #111111;
         border-radius: 8px;
