@@ -52,10 +52,34 @@ st.markdown("""
 
     html, body, [class*="css"] {
         font-family: 'Space Grotesk', sans-serif;
+        color: #FFFFFF !important;
     }
-    h1, h2, h3 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: 'Clash Display', 'Space Grotesk', sans-serif !important;
         font-weight: 600 !important;
+        color: #FFFFFF !important;
+    }
+    p, span, div, label, li {
+        color: #FFFFFF !important;
+    }
+    .stMarkdown, .stText, [data-testid="stMetricLabel"],
+    [data-testid="stMetricValue"], [data-testid="stMetricDelta"] {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSidebar"] {
+        background-color: #111111 !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: #FFFFFF !important;
+    }
+    .stSelectbox label, .stSlider label, .stRadio label {
+        color: #FFFFFF !important;
+    }
+    .stRadio div[role="radiogroup"] label {
+        color: #FFFFFF !important;
+    }
+    .stDataFrame, .stDataFrame * {
+        color: #FFFFFF !important;
     }
     .metric-card {
         background: #111111;
