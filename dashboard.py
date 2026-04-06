@@ -89,7 +89,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-COLORS = ["#FFD10D", "#004AAD", "#FFFFFF", "#FFD10D99", "#004AAD99", "#888888"]
+COLORS = ["#FFD10D", "#004AAD", "#FFFFFF", "#F5C400", "#003A8C", "#888888"]
 
 
 # ── Data loading ──────────────────────────────────────────────────────────────
