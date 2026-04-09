@@ -279,9 +279,12 @@ def fetch_fresh():
         try:
             fetch_all_content(force_refresh=True)
             st.cache_data.clear()
-            st.success("Data refreshed successfully.")
+            st.session_state["fetch_error"] = None
+            return True
         except Exception as e:
-            st.error(f"Error fetching data: {e}")
+            import traceback
+            st.session_state["fetch_error"] = traceback.format_exc()
+            return False
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -304,8 +307,13 @@ with st.sidebar:
             st.rerun()
 
     if st.button("Refresh Data from Instagram", type="primary", use_container_width=True):
-        fetch_fresh()
-        st.rerun()
+        success = fetch_fresh()
+        if success:
+            st.rerun()
+
+    if st.session_state.get("fetch_error"):
+        st.error("Fetch failed:")
+        st.code(st.session_state["fetch_error"])
 
     if data_ok:
         st.markdown(f"**@{account.get('username', '?')}**")
