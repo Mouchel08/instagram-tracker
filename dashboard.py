@@ -4,8 +4,6 @@ Run: streamlit run dashboard.py
 """
 
 import os
-import subprocess
-import sys
 
 import streamlit as st
 
@@ -20,6 +18,7 @@ for key in ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID", "FACEBOOK_APP_ID", "F
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from fetch_content import fetch_all_content
 from analyze import (
     by_content_type,
     caption_length_analysis,
@@ -277,15 +276,12 @@ def get_data():
 
 def fetch_fresh():
     with st.spinner("Pulling data from Instagram API... this may take a few minutes."):
-        result = subprocess.run(
-            [sys.executable, "fetch_content.py", "--refresh"],
-            capture_output=True, text=True
-        )
-        st.cache_data.clear()
-        if result.returncode == 0:
+        try:
+            fetch_all_content(force_refresh=True)
+            st.cache_data.clear()
             st.success("Data refreshed successfully.")
-        else:
-            st.error(f"Error fetching data:\n{result.stderr}")
+        except Exception as e:
+            st.error(f"Error fetching data: {e}")
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -300,6 +296,12 @@ with st.sidebar:
     except FileNotFoundError:
         data_ok = False
         df_full, account = pd.DataFrame(), {}
+        # Auto-fetch if credentials are available but no data exists yet
+        has_creds = bool(os.environ.get("INSTAGRAM_ACCESS_TOKEN") and os.environ.get("INSTAGRAM_USER_ID"))
+        if has_creds and "auto_fetch_attempted" not in st.session_state:
+            st.session_state["auto_fetch_attempted"] = True
+            fetch_fresh()
+            st.rerun()
 
     if st.button("Refresh Data from Instagram", type="primary", use_container_width=True):
         fetch_fresh()
@@ -339,7 +341,6 @@ with st.sidebar:
 if not data_ok:
     st.title("Instagram Tracker")
     st.warning("No data yet. Click **Refresh Data from Instagram** in the sidebar to pull your posts.")
-    st.info("Make sure your `.env` file has `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` set.\nSee `README.md` for setup instructions.")
     st.stop()
 
 
